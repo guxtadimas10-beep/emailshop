@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Shop - Plataforma de Email Temporário</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📧 Email Shop</h1>
+            <p class="subtitle">Plataforma de Email Temporário com Domínio .shop</p>
+        </header>
+
+        <div class="main-content">
+            <!-- Seção de Criação de Email -->
+            <section class="email-creation">
+                <h2>Criar Novo Email</h2>
+                <div class="form-group">
+                    <input 
+                        type="text" 
+                        id="emailPrefix" 
+                        placeholder="Digite o prefixo do seu email"
+                        class="input-field"
+                    >
+                    <span class="domain">@emailshop.shop</span>
+                </div>
+                <button id="createEmailBtn" class="btn btn-primary">Criar Email</button>
+                <div id="errorMessage" class="error-message"></div>
+            </section>
+
+            <!-- Seção de Email Ativo -->
+            <section class="active-email" id="activeEmailSection" style="display: none;">
+                <h2>Email Ativo</h2>
+                <div class="email-display">
+                    <p class="email-address" id="displayEmail"></p>
+                    <button id="copyEmailBtn" class="btn btn-secondary">Copiar Email</button>
+                    <button id="deleteEmailBtn" class="btn btn-danger">Deletar Email</button>
+                </div>
+            </section>
+
+            <!-- Seção de Emails Recebidos -->
+            <section class="inbox">
+                <h2>📬 Caixa de Entrada</h2>
+                <div id="emailList" class="email-list">
+                    <p class="empty-state">Nenhum email recebido ainda</p>
+                </div>
+            </section>
+
+            <!-- Seção de Lista de Tarefas -->
+            <section class="todo-section">
+                <h2>✓ Lista de Tarefas</h2>
+                <div class="todo-input-group">
+                    <input 
+                        type="text" 
+                        id="todoInput" 
+                        placeholder="Adicionar uma nova tarefa..."
+                        class="input-field"
+                    >
+                    <button id="addTodoBtn" class="btn btn-primary">Adicionar</button>
+                </div>
+                <ul id="todoList" class="todo-list">
+                    <li class="empty-state">Nenhuma tarefa adicionada</li>
+                </ul>
+            </section>
+        </div>
+    </div>
+
+    <script src="todo-app.js"></script>
+    <script src="email-app.js"></script>
+</body>
+</html>

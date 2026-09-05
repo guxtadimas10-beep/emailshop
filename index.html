@@ -3,71 +3,529 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Email Shop - Plataforma de Email Temporário</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Email Shop - Domínio .shop</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 900px;
+        }
+
+        header {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+        }
+
+        header h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .main-content {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            padding: 40px;
+        }
+
+        .section {
+            margin-bottom: 40px;
+        }
+
+        .section h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 10px;
+        }
+
+        .email-generator {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .email-generator input {
+            flex: 1;
+            min-width: 200px;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1em;
+            transition: border-color 0.3s;
+        }
+
+        .email-generator input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .email-domain {
+            font-weight: bold;
+            color: #667eea;
+            font-size: 1.1em;
+        }
+
+        button {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-secondary {
+            background: #f0f0f0;
+            color: #333;
+        }
+
+        .btn-secondary:hover {
+            background: #e0e0e0;
+        }
+
+        .btn-danger {
+            background: #ff6b6b;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #ff5252;
+        }
+
+        .btn-copy {
+            background: #4ecdc4;
+            color: white;
+        }
+
+        .btn-copy:hover {
+            background: #45b7b0;
+        }
+
+        .email-display {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .email-display p {
+            font-size: 1.3em;
+            margin-bottom: 15px;
+            word-break: break-all;
+        }
+
+        .inbox {
+            background: #f9f9f9;
+            border-radius: 10px;
+            padding: 20px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .email-item {
+            background: white;
+            border-left: 4px solid #667eea;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .email-item .from {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .email-item .subject {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .email-item .content {
+            color: #666;
+            font-size: 0.95em;
+            padding: 10px;
+            background: #f5f5f5;
+            border-radius: 5px;
+        }
+
+        .code-highlight {
+            background: #e0e0e0;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-weight: bold;
+            color: #ff6b6b;
+        }
+
+        .empty-state {
+            text-align: center;
+            color: #999;
+            padding: 30px 20px;
+        }
+
+        .todo-section {
+            background: #f5f5f5;
+            padding: 25px;
+            border-radius: 10px;
+        }
+
+        .todo-input {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .todo-input input {
+            flex: 1;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1em;
+        }
+
+        .todo-input input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .todo-list {
+            list-style: none;
+        }
+
+        .todo-item {
+            background: white;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .todo-item input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        .todo-item input[type="checkbox"]:checked + span {
+            text-decoration: line-through;
+            color: #999;
+        }
+
+        .todo-item span {
+            flex: 1;
+        }
+
+        .todo-item button {
+            background: #ff6b6b;
+            color: white;
+            padding: 8px 12px;
+            font-size: 0.9em;
+        }
+
+        .message {
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            display: none;
+        }
+
+        .message.error {
+            background: #ffe0e0;
+            color: #c0392b;
+            border-left: 4px solid #c0392b;
+            display: block;
+        }
+
+        .message.success {
+            background: #e0ffe0;
+            color: #27ae60;
+            border-left: 4px solid #27ae60;
+            display: block;
+        }
+
+        @media (max-width: 600px) {
+            header h1 {
+                font-size: 2em;
+            }
+
+            .main-content {
+                padding: 20px;
+            }
+
+            .email-generator {
+                flex-direction: column;
+            }
+
+            .email-generator input {
+                width: 100%;
+            }
+        }
+    </style>
 </head>
 <body>
     <div class="container">
         <header>
             <h1>📧 Email Shop</h1>
-            <p class="subtitle">Plataforma de Email Temporário com Domínio .shop</p>
+            <p>Crie emails temporários com domínio .shop</p>
         </header>
 
         <div class="main-content">
-            <!-- Seção de Criação de Email -->
-            <section class="email-creation">
-                <h2>Criar Novo Email</h2>
-                <div class="form-group">
+            <!-- Seção de Gerador de Email -->
+            <div class="section">
+                <h2>Gerar Novo Email</h2>
+                <div id="successMessage" class="message success"></div>
+                <div id="errorMessage" class="message error"></div>
+                
+                <div class="email-generator">
                     <input 
                         type="text" 
                         id="emailPrefix" 
-                        placeholder="Digite o prefixo do seu email"
-                        class="input-field"
+                        placeholder="Digite um nome para seu email"
+                        autocomplete="off"
                     >
-                    <span class="domain">@emailshop.shop</span>
+                    <span class="email-domain">@emailshop.shop</span>
+                    <button class="btn-primary" onclick="generateEmail()">Gerar Email</button>
                 </div>
-                <button id="createEmailBtn" class="btn btn-primary">Criar Email</button>
-                <div id="errorMessage" class="error-message"></div>
-            </section>
+            </div>
 
-            <!-- Seção de Email Ativo -->
-            <section class="active-email" id="activeEmailSection" style="display: none;">
+            <!-- Email Ativo -->
+            <div class="section" id="activeEmailSection" style="display: none;">
                 <h2>Email Ativo</h2>
                 <div class="email-display">
-                    <p class="email-address" id="displayEmail"></p>
-                    <button id="copyEmailBtn" class="btn btn-secondary">Copiar Email</button>
-                    <button id="deleteEmailBtn" class="btn btn-danger">Deletar Email</button>
+                    <p id="displayEmail"></p>
+                    <button class="btn-copy" onclick="copyToClipboard()">📋 Copiar Email</button>
+                    <button class="btn-danger" onclick="deleteEmail()" style="margin-left: 10px;">🗑️ Deletar</button>
                 </div>
-            </section>
+            </div>
 
-            <!-- Seção de Emails Recebidos -->
-            <section class="inbox">
+            <!-- Caixa de Entrada -->
+            <div class="section">
                 <h2>📬 Caixa de Entrada</h2>
-                <div id="emailList" class="email-list">
-                    <p class="empty-state">Nenhum email recebido ainda</p>
+                <div class="inbox" id="inboxContainer">
+                    <div class="empty-state">
+                        Nenhum email recebido ainda. Crie um email e use-o para se registrar em serviços!
+                    </div>
                 </div>
-            </section>
+            </div>
 
-            <!-- Seção de Lista de Tarefas -->
-            <section class="todo-section">
-                <h2>✓ Lista de Tarefas</h2>
-                <div class="todo-input-group">
+            <!-- Lista de Tarefas -->
+            <div class="section todo-section">
+                <h2>✓ Minhas Tarefas</h2>
+                <div class="todo-input">
                     <input 
                         type="text" 
                         id="todoInput" 
-                        placeholder="Adicionar uma nova tarefa..."
-                        class="input-field"
+                        placeholder="Adicione uma tarefa..."
+                        onkeypress="if(event.key === 'Enter') addTodo()"
                     >
-                    <button id="addTodoBtn" class="btn btn-primary">Adicionar</button>
+                    <button class="btn-primary" onclick="addTodo()">Adicionar</button>
                 </div>
-                <ul id="todoList" class="todo-list">
+                <ul class="todo-list" id="todoList">
                     <li class="empty-state">Nenhuma tarefa adicionada</li>
                 </ul>
-            </section>
+            </div>
         </div>
     </div>
 
-    <script src="todo-app.js"></script>
-    <script src="email-app.js"></script>
+    <script>
+        // Email App
+        let currentEmail = localStorage.getItem('emailshop_email') || null;
+
+        function generateEmail() {
+            const prefix = document.getElementById('emailPrefix').value.trim();
+            const errorMsg = document.getElementById('errorMessage');
+            const successMsg = document.getElementById('successMessage');
+
+            errorMsg.textContent = '';
+            errorMsg.style.display = 'none';
+            successMsg.textContent = '';
+            successMsg.style.display = 'none';
+
+            if (!prefix) {
+                errorMsg.textContent = '⚠️ Digite um nome para o email!';
+                errorMsg.style.display = 'block';
+                return;
+            }
+
+            if (prefix.length < 3) {
+                errorMsg.textContent = '⚠️ O nome deve ter pelo menos 3 caracteres!';
+                errorMsg.style.display = 'block';
+                return;
+            }
+
+            currentEmail = prefix + '@emailshop.shop';
+            localStorage.setItem('emailshop_email', currentEmail);
+            document.getElementById('emailPrefix').value = '';
+
+            successMsg.textContent = '✓ Email criado com sucesso! Use-o para se registrar em serviços.';
+            successMsg.style.display = 'block';
+
+            displayActiveEmail();
+            simulateEmails();
+        }
+
+        function displayActiveEmail() {
+            const section = document.getElementById('activeEmailSection');
+            if (currentEmail) {
+                document.getElementById('displayEmail').textContent = currentEmail;
+                section.style.display = 'block';
+            } else {
+                section.style.display = 'none';
+            }
+        }
+
+        function copyToClipboard() {
+            if (currentEmail) {
+                navigator.clipboard.writeText(currentEmail).then(() => {
+                    alert('✓ Email copiado para a área de transferência!');
+                });
+            }
+        }
+
+        function deleteEmail() {
+            if (confirm('Tem certeza que deseja deletar este email?')) {
+                currentEmail = null;
+                localStorage.removeItem('emailshop_email');
+                displayActiveEmail();
+                document.getElementById('inboxContainer').innerHTML = '<div class="empty-state">Nenhum email recebido ainda.</div>';
+            }
+        }
+
+        function simulateEmails() {
+            const emails = [
+                {
+                    from: 'noreply@netflix.com',
+                    subject: 'Código de Verificação Netflix',
+                    content: 'Seu código de verificação é: <span class="code-highlight">847293</span>. Este código expira em 15 minutos.'
+                },
+                {
+                    from: 'verification@gmail.com',
+                    subject: 'Confirmação de Conta Google',
+                    content: 'Use este código para confirmar sua conta: <span class="code-highlight">592014</span>'
+                },
+                {
+                    from: 'support@amazon.com',
+                    subject: 'Código de Segurança Amazon',
+                    content: 'Seu código de acesso é: <span class="code-highlight">654321</span>. Não compartilhe com ninguém.'
+                }
+            ];
+
+            const inbox = document.getElementById('inboxContainer');
+            inbox.innerHTML = '';
+
+            emails.forEach((email, index) => {
+                setTimeout(() => {
+                    const emailDiv = document.createElement('div');
+                    emailDiv.className = 'email-item';
+                    emailDiv.innerHTML = `
+                        <div class="from">📧 ${email.from}</div>
+                        <div class="subject">${email.subject}</div>
+                        <div class="content">${email.content}</div>
+                    `;
+                    inbox.appendChild(emailDiv);
+                }, index * 1000);
+            });
+        }
+
+        // Todo List App
+        function loadTodos() {
+            const todos = JSON.parse(localStorage.getItem('emailshop_todos')) || [];
+            const todoList = document.getElementById('todoList');
+            todoList.innerHTML = '';
+
+            if (todos.length === 0) {
+                todoList.innerHTML = '<li class="empty-state">Nenhuma tarefa adicionada</li>';
+                return;
+            }
+
+            todos.forEach((todo, index) => {
+                const li = document.createElement('li');
+                li.className = 'todo-item';
+                li.innerHTML = `
+                    <input type="checkbox" ${todo.completed ? 'checked' : ''} onchange="toggleTodo(${index})">
+                    <span>${todo.text}</span>
+                    <button onclick="deleteTodo(${index})">Deletar</button>
+                `;
+                todoList.appendChild(li);
+            });
+        }
+
+        function addTodo() {
+            const input = document.getElementById('todoInput');
+            const text = input.value.trim();
+
+            if (!text) return;
+
+            const todos = JSON.parse(localStorage.getItem('emailshop_todos')) || [];
+            todos.push({ text, completed: false });
+            localStorage.setItem('emailshop_todos', JSON.stringify(todos));
+
+            input.value = '';
+            loadTodos();
+        }
+
+        function toggleTodo(index) {
+            const todos = JSON.parse(localStorage.getItem('emailshop_todos')) || [];
+            todos[index].completed = !todos[index].completed;
+            localStorage.setItem('emailshop_todos', JSON.stringify(todos));
+            loadTodos();
+        }
+
+        function deleteTodo(index) {
+            const todos = JSON.parse(localStorage.getItem('emailshop_todos')) || [];
+            todos.splice(index, 1);
+            localStorage.setItem('emailshop_todos', JSON.stringify(todos));
+            loadTodos();
+        }
+
+        // Inicializar
+        window.addEventListener('load', () => {
+            displayActiveEmail();
+            loadTodos();
+        });
+    </script>
 </body>
 </html>
